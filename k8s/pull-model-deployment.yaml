@@ -30,7 +30,7 @@ spec:
               value: llama2
             - name: OLLAMA_BASE_URL
               value: http://host.docker.internal:11434
-          image: genai-stack/pull-model:latest
+          image: ghcr.io/aknot242/genai-stack-pull-model
           name: pull-model
           resources: {}
       restartPolicy: Always

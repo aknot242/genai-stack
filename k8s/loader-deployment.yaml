@@ -47,7 +47,7 @@ spec:
             - name: OLLAMA_BASE_URL
               value: http://host.docker.internal:11434
             - name: OPENAI_API_KEY
-          image: loader
+          image: ghcr.io/aknot242/genai-stack-loader
           name: loader
           ports:
             - containerPort: 8080
