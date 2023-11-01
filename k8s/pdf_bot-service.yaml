@@ -7,7 +7,7 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: pdf-bot
-  name: pdf_bot
+  name: pdf-bot
 spec:
   ports:
     - name: "8503"
