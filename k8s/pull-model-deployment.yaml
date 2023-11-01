@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.31.2 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pull-model
+  name: pull-model
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: pull-model
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.31.2 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/genai-stack-aknot242-net: "true"
+        io.kompose.service: pull-model
+    spec:
+      containers:
+        - env:
+            - name: LLM
+              value: llama2
+            - name: OLLAMA_BASE_URL
+              value: http://host.docker.internal:11434
+          image: genai-stack/pull-model:latest
+          name: pull-model
+          resources: {}
+      restartPolicy: Always
+status: {}

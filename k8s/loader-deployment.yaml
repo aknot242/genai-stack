@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.31.2 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: loader
+  name: loader
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: loader
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.31.2 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/genai-stack-aknot242-net: "true"
+        io.kompose.service: loader
+    spec:
+      containers:
+        - env:
+            - name: AWS_ACCESS_KEY_ID
+            - name: AWS_DEFAULT_REGION
+            - name: AWS_SECRET_ACCESS_KEY
+            - name: EMBEDDING_MODEL
+              value: sentence_transformer
+            - name: LANGCHAIN_API_KEY
+            - name: LANGCHAIN_ENDPOINT
+              value: '"https://api.smith.langchain.com"'
+            - name: LANGCHAIN_PROJECT
+            - name: LANGCHAIN_TRACING_V2
+              value: "false"
+            - name: NEO4J_PASSWORD
+              value: password
+            - name: NEO4J_URI
+              value: neo4j://database:7687
+            - name: NEO4J_USERNAME
+              value: neo4j
+            - name: OLLAMA_BASE_URL
+              value: http://host.docker.internal:11434
+            - name: OPENAI_API_KEY
+          image: loader
+          name: loader
+          ports:
+            - containerPort: 8080
+              hostPort: 8081
+              protocol: TCP
+            - containerPort: 8502
+              hostPort: 8502
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /embedding_model
+              name: loader-claim0
+      restartPolicy: Always
+      volumes:
+        - name: loader-claim0
+          persistentVolumeClaim:
+            claimName: loader-claim0
+status: {}

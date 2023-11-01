@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.31.2 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: database
+  name: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: database
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.31.2 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/genai-stack-aknot242-net: "true"
+        io.kompose.service: database
+    spec:
+      containers:
+        - env:
+            - name: NEO4J_AUTH
+              value: neo4j/password
+            - name: NEO4J_PLUGINS
+              value: '["apoc"]'
+            - name: NEO4J_db_tx__log_rotation_retention__policy
+              value: "false"
+          image: neo4j:5.11
+          livenessProbe:
+            exec:
+              command:
+                - wget --no-verbose --tries=1 --spider localhost:7474 || exit 1
+            failureThreshold: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+          name: database
+          ports:
+            - containerPort: 7687
+              hostPort: 7687
+              protocol: TCP
+            - containerPort: 7474
+              hostPort: 7474
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /data
+              name: database-claim0
+      restartPolicy: Always
+      volumes:
+        - name: database-claim0
+          persistentVolumeClaim:
+            claimName: database-claim0
+status: {}

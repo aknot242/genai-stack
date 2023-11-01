@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.31.2 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: front-end
+  name: front-end
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: front-end
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.31.2 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/genai-stack-aknot242-net: "true"
+        io.kompose.service: front-end
+    spec:
+      containers:
+        - image: front-end
+          name: front-end
+          ports:
+            - containerPort: 8505
+              hostPort: 8505
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}
