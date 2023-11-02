@@ -24,16 +24,26 @@ spec:
   routes:
     - path: /bot
       action:
-        pass: bot
+        proxy:
+          upstream: bot
+          rewritePath: /
     - path: /loader
       action:
-        pass: loader
+        proxy:
+          upstream: loader
+          rewritePath: /
     - path: /pdf-bot
       action:
-        pass: pdf-bot
+        proxy:
+          upstream: pdf-bot
+          rewritePath: /
     - path: /api
       action:
-        pass: api
+        proxy:
+          upstream: api
+          rewritePath: /
     - path: /front-end
       action:
-        pass: front-end
+        proxy:
+          upstream: front-end
+          rewritePath: /
