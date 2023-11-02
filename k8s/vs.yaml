@@ -4,7 +4,7 @@ kind: VirtualServer
 metadata:
   name: genai-stack
 spec:
-  host: *.access.udf.f5.com
+  host: "*.access.udf.f5.com"
   upstreams:
     - name: bot
       service: bot
