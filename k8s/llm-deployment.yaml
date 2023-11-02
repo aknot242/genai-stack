@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.31.2 (HEAD)
   creationTimestamp: null
   labels:
-    io.kompose.service: pull-model
-  name: pull-model
+    io.kompose.service: llm
+  name: llm
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: pull-model
+      io.kompose.service: llm
   strategy: {}
   template:
     metadata:
@@ -22,16 +22,15 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.network/genai-stack-aknot242-net: "true"
-        io.kompose.service: pull-model
+        io.kompose.service: llm
     spec:
       containers:
-        - env:
-            - name: LLM
-              value: llama2
-            - name: OLLAMA_BASE_URL
-              value: http://llm:11434
-          image: ghcr.io/aknot242/genai-stack-pull-model
-          name: pull-model
+        - image: ollama/ollama:latest
+          name: llm
+          ports:
+            - containerPort: 11434
+              hostPort: 11434
+              protocol: TCP
           resources: {}
       restartPolicy: Always
 status: {}

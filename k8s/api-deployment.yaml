@@ -47,7 +47,7 @@ spec:
             - name: NEO4J_USERNAME
               value: neo4j
             - name: OLLAMA_BASE_URL
-              value: http://host.docker.internal:11434
+              value: http://llm:11434
             - name: OPENAI_API_KEY
           image: ghcr.io/aknot242/genai-stack-api
           name: api
