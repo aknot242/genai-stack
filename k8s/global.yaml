@@ -1,0 +1,23 @@
+---
+apiVersion: k8s.nginx.org/v1alpha1
+kind: GlobalConfiguration
+metadata:
+  name: nginx-configuration
+  namespace: nginx-ingress
+spec:
+  listeners:
+    - name: http-8501
+      port: 8501
+      protocol: HTTP
+    - name: http-8502
+      port: 8502
+      protocol: HTTP
+    - name: http-8503
+      port: 8503
+      protocol: HTTP
+    - name: http-8504
+      port: 8504
+      protocol: HTTP
+    - name: http-8505
+      port: 8505
+      protocol: HTTP

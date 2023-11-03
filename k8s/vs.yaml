@@ -2,48 +2,79 @@
 apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
-  name: genai-stack
+  name: bot
 spec:
   host: "*.access.udf.f5.com"
   upstreams:
     - name: bot
       service: bot
       port: 8501
+  routes:
+    - path: /
+      action:
+        pass: bot
+
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: loader
+spec:
+  host: "*.access.udf.f5.com"
+  upstreams:
     - name: loader
       service: loader
       port: 8502
+  routes:
+    - path: /
+      action:
+        pass: loader
+
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: pdf-bot
+spec:
+  host: "*.access.udf.f5.com"
+  upstreams:
     - name: pdf-bot
       service: pdf-bot
       port: 8503
+  routes:
+    - path: /
+      action:
+        pass: pdf-bot
+
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: api
+spec:
+  host: "*.access.udf.f5.com"
+  upstreams:
     - name: api
       service: api
       port: 8504
+  routes:
+    - path: /
+      action:
+        pass: api
+
+---
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: front-end
+spec:
+  host: "*.access.udf.f5.com"
+  upstreams:
     - name: front-end
       service: front-end
       port: 8505
   routes:
-    - path: /bot
+    - path: /
       action:
-        proxy:
-          upstream: bot
-          rewritePath: /
-    - path: /loader
-      action:
-        proxy:
-          upstream: loader
-          rewritePath: /
-    - path: /pdf-bot
-      action:
-        proxy:
-          upstream: pdf-bot
-          rewritePath: /
-    - path: /api
-      action:
-        proxy:
-          upstream: api
-          rewritePath: /
-    - path: /front-end
-      action:
-        proxy:
-          upstream: front-end
-          rewritePath: /
+        pass: front-end
+
