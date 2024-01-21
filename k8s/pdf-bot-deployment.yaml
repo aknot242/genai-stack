@@ -38,7 +38,7 @@ spec:
             - name: LANGCHAIN_TRACING_V2
               value: "false"
             - name: LLM
-              value: llama2
+              value: "mistral:instruct"
             - name: NEO4J_PASSWORD
               value: password
             - name: NEO4J_URI
