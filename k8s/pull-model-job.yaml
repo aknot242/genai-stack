@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Job
 metadata:
   annotations:
     kompose.cmd: kompose convert
@@ -33,5 +33,6 @@ spec:
           image: ghcr.io/aknot242/genai-stack-pull-model
           name: pull-model
           resources: {}
-      restartPolicy: Always
+      restartPolicy: Never
+  backoffLimit: 4
 status: {}
