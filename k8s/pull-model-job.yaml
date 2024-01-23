@@ -10,7 +10,7 @@ spec:
       containers:
         - env:
             - name: LLM
-              value: "mistral:instruct"
+              value: "mistral:7b-instruct-q4_K_S"
             - name: OLLAMA_BASE_URL
               value: http://llm:11434
           image: ghcr.io/aknot242/genai-stack-pull-model
