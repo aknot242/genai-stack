@@ -9,11 +9,9 @@ metadata:
     io.kompose.service: pull-model
   name: pull-model
 spec:
-  replicas: 1
   selector:
     matchLabels:
       io.kompose.service: pull-model
-  strategy: {}
   template:
     metadata:
       annotations:
